@@ -1,20 +1,27 @@
-data "google_service_account_access_token" "my_kubernetes_sa" {
-  target_service_account = "{{service_account}}"
-  scopes                 = ["userinfo-email", "cloud-platform"]
-  lifetime               = "3600s"
+data "google_container_engine_versions" "cluster_version" {
+  location       = "${var.google_region}"
+  version_prefix = "${var.cluster_version}"
+  project        = "${var.google_project_id}"
+}
+output "cluster_version" {
+  value = "${data.google_container_engine_versions.cluster_version.latest_node_version}"
 }
 
-data "google_container_cluster" "my_cluster" {
-  name     = "my-cluster"
-  location = "us-central1"
+provider "google" {
+  credentials = "${file("${var.google_credentials}")}" #GOOGLE_CREDENTIALS to the path of a file containing the credential JSON
+  project     = "${var.google_project_id}"
 }
 
-provider "kubernetes" {
-  load_config_file = false
+resource "google_container_cluster" "create" {
+  name               = "${var.cluster_name}"
+  network            = "${var.cluster_network}"
+  subnetwork         = "${var.subnetwork}"
+  location           = "${var.google_region}"
+  min_master_version = "${data.google_container_engine_versions.cluster_version.latest_node_version}"
+  initial_node_count = "${var.cluster_node_count}"
+  project            = "${var.google_project_id}"
 
-  host  = "https://${data.google_container_cluster.my_cluster.endpoint}"
-  token = data.google_service_account_access_token.my_kubernetes_sa.access_token
-  cluster_ca_certificate = base64decode(
-    data.google_container_cluster.my_cluster.master_auth[0].cluster_ca_certificate,
-  )
+  node_config {
+    machine_type = "${var.machine_type}"
+  }
 }
