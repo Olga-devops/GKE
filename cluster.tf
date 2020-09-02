@@ -7,11 +7,6 @@ output "cluster_version" {
   value = "${data.google_container_engine_versions.cluster_version.latest_node_version}"
 }
 
-provider "google" {
-  credentials = "${file("${var.google_credentials}")}" #GOOGLE_CREDENTIALS to the path of a file containing the credential JSON
-  project     = "${var.google_project_id}"
-}
-
 resource "google_container_cluster" "create" {
   name               = "${var.cluster_name}"
   network            = "${var.cluster_network}"
