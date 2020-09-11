@@ -1,5 +1,5 @@
 module "gke_cluster" {
-    source  = "Olga-devops/gke/gcp"
+    source  = "../../"
     cluster_name = "Test-cluster"
     google_region = "us-central1"
     google_project_id = "Olga-project"
