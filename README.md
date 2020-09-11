@@ -7,15 +7,7 @@ provider.google: version = "~> 2.20"
 Calling module
 Your main.tf should look like this
 
-module "gke_cluster" {
-    source  = "fuchicorp/gke/google"
-    cluster_name = "fuchicorp-cluster"
-    google_region = "us-central1"
-    google_project_id = "fsadykov-project"
-    cluster_node_count = "2"
-    cluster_version = "1.15"
-    google_credentials = "./fuchicorp-service-account.json" # service account 
-}
+
 After you finish with defining all required variables go ahead and run terraform init
 
 terraform init
