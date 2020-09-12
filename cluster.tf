@@ -7,7 +7,7 @@ output "cluster_version" {
   value = "${data.google_container_engine_versions.cluster_version.latest_node_version}"
 }
 
-resource "google_container_cluster" "create" {
+resource "google_container_cluster" "gke_cluster_olga" {
   name               = "${var.cluster_name}"
   network            = "${var.cluster_network}"
   subnetwork         = "${var.subnetwork}"
