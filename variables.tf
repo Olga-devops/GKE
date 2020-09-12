@@ -1,7 +1,7 @@
 variable "google_project_id" {
   description = "- (Required)  Google account project id."
 }
-variable "google_region" {
+variable "region" {
   type = "string"
   description = "- (Required) Google region where the cluster will be deployed."
 }
@@ -37,3 +37,4 @@ variable "machine_type" {
   type = "string"
   default = "n1-standard-2"
   description = "- (Optional) The name of a Google Compute Engine machine type. Defaults to n1-standard-1. "
+}
