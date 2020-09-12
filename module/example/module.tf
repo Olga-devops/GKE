@@ -5,5 +5,5 @@ module "gke_cluster" {
     google_project_id = "caramel-anvil-289323"
     cluster_node_count = "2"
     cluster_version = "1.15"
-    google_credentials = "./service-account.json" # service account for credentials
+    google_credentials = "./olga-service-account.json" # service account for credentials
 }
