@@ -1,4 +1,4 @@
-Terraform module for GKE with custom buckets 
+Terraform module for GKE with default node pool
 -
 To be able to use following terraform module please follow the documentation.
 
